@@ -1,16 +1,19 @@
 import { Col, Row } from "reactstrap";
 
-const MediaObject = () => {
+const MediaObject = ({ imageOnRight }) => {
   return (
     <div>
-      <Row>
-        <Col sm='4'>
-          <img
-            className='media-object-image'
-            src='https://picsum.photos/300/200'
-            alt='sample'
-          />
-        </Col>
+      <Row className='media-object-row'>
+        {!imageOnRight && (
+          <Col sm='4'>
+            <img
+              className='media-object-image'
+              src='https://picsum.photos/300/200'
+              alt='sample'
+            />
+          </Col>
+        )}
+
         <Col sm='8' className='media-object-body'>
           <div>
             <h5 className='mt-0'>Media heading</h5>
@@ -20,6 +23,16 @@ const MediaObject = () => {
             vulputate fringilla. Donec lacinia congue felis in faucibus.
           </div>
         </Col>
+        {imageOnRight && (
+          <Col sm='4'>
+            <img
+              style={{ float: "right " }}
+              className='media-object-image'
+              src='https://picsum.photos/300/200'
+              alt='sample'
+            />
+          </Col>
+        )}
       </Row>
     </div>
   );

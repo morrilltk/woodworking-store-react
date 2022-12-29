@@ -9,7 +9,7 @@ import {
   NavbarToggler,
   NavItem,
 } from "reactstrap";
-import CartDropdown from "./CartDropdown";
+import CartDropdown from "../features/cart/CartDropdown";
 
 const AppNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);

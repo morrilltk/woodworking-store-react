@@ -8,17 +8,18 @@ const Footer = () => {
   const [emailModalOpen, setEmailModalOpen] = useState(false);
   const [confirmationModalOpen, setConfirmationModalOpen] = useState(false);
 
+  const handleEmailFormSubmit = formData => {
+    setConfirmationModalOpen(true);
+    setEmailModalOpen(false);
+    console.log(formData);
+    // submit to email server here
+  };
   return (
     <footer className='site-footer fixed-bottom'>
       <EmailFormModal
         isOpen={emailModalOpen}
         setModalOpen={setEmailModalOpen}
-        submit={formData => {
-          setConfirmationModalOpen(true);
-          setEmailModalOpen(false);
-          console.log(formData);
-          // submit to email server here
-        }}
+        submit={handleEmailFormSubmit}
       />
       <EmailConfirmationModal
         isOpen={confirmationModalOpen}

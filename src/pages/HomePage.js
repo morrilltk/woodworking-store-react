@@ -1,12 +1,17 @@
+import { Container } from "reactstrap";
 import Header from "../components/Header";
 import MediaObject from "../components/MediaObject";
 
 const HomePage = () => {
   return (
-    <div>
+    <Container>
       <Header header='Home' />
       <MediaObject />
-    </div>
+      <hr />
+      <MediaObject imageOnRight />
+      <hr />
+      <MediaObject />
+    </Container>
   );
 };
 

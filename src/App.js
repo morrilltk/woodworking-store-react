@@ -3,7 +3,7 @@ import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutUsPage";
 import ContactPage from "./pages/ContactPage";
 import AppNavbar from "./components/AppNavbar";
-import ProductList from "./components/ProductList";
+import ProductList from "./features/products/ProductList";
 import "./App.css";
 import CheckoutPage from "./pages/CheckoutPage";
 import Footer from "./components/Footer";
