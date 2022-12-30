@@ -18,8 +18,6 @@ export const selectAllProducts = state => {
 
 export const selectProductById = id => {
   return state => {
-    return state.products.productsArray.find(
-      product => product.id === parseInt(id)
-    );
+    return state.products.productsArray.find(product => product.id === id);
   };
 };

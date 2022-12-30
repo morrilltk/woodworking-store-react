@@ -1,40 +1,74 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  cartsArray: [
-    {
-      id: 3,
-      title: "test 4",
-      desc: "desc 4",
-      price: 60,
-      quantity: 1,
-      imagePath: "https://picsum.photos/300/200",
-    },
-    {
-      id: 4,
-      title: "test 5",
-      desc: "desc 5",
-      price: 100,
-      quantity: 10,
-      imagePath: "https://picsum.photos/300/200",
-    },
-    {
-      id: 5,
-      title: "test 6",
-      desc: "desc 6",
-      price: 50,
-      quantity: 15,
-      imagePath: "https://picsum.photos/300/200",
-    },
-  ],
+  cartArray: [],
 };
 
 const cartSlice = createSlice({
   name: "cart",
   initialState,
+  reducers: {
+    addProductToCart: (state, action) => {
+      const stateIdx = state.cartArray.findIndex(
+        stateProduct => stateProduct.id === action.payload.id
+      );
+      if (stateIdx >= 0) {
+        console.log({ stateIdx });
+        const stateProduct = state.cartArray[stateIdx];
+        state.cartArray[stateIdx] = {
+          ...stateProduct,
+          quantity: stateProduct.quantity + parseInt(action.payload.quantity),
+        };
+      } else {
+        state.cartArray.push(action.payload);
+      }
+
+      // const id = action.payload.id;
+      // if (state.cartObj[id]) {
+      //   state.cartObj = {
+      //     ...state.cartObj,
+      //     [id]: {
+      //       ...state.cartObj[id],
+      //       quantity: state.cartObj[id].quantity + action.payload.quantity,
+      //     },
+      //   };
+      // } else {
+      //   state.cartObj = { ...state.cartObj, [id]: action.payload };
+      // }
+
+      // state.cartOjb = [...state.cartArray, action.payload];
+    },
+    removeCartItem: (state, action) => {
+      state.cartArray = state.cartArray.filter(
+        product => product.id !== action.payload.id
+      );
+    },
+    changeCartItemQuantity: (state, action) => {
+      if (action.payload.quantity <= 0) {
+        state.cartArray = state.cartArray.filter(
+          product => product.id !== action.payload.id
+        );
+      } else {
+        const stateIdx = state.cartArray.findIndex(
+          stateProduct => stateProduct.id === action.payload.id
+        );
+        if (stateIdx >= 0) {
+          const stateProduct = state.cartArray[stateIdx];
+          state.cartArray[stateIdx] = {
+            ...stateProduct,
+            quantity: parseInt(action.payload.quantity),
+          };
+        } else {
+          console.error("Unable to change quantity with", { state, action });
+        }
+      }
+    },
+  },
 });
 
 export const cartReducer = cartSlice.reducer;
+export const { addProductToCart, removeCartItem, changeCartItemQuantity } =
+  cartSlice.actions;
 export const selectAllCartItems = state => {
-  return state.cart.cartsArray;
+  return state.cart.cartArray;
 };

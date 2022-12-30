@@ -6,7 +6,6 @@ import {
   Col,
   Container,
   Dropdown,
-  DropdownItem,
   DropdownMenu,
   DropdownToggle,
   Row,
@@ -22,20 +21,21 @@ const CartDropdown = () => {
 
   const calculateCartQuantity = cartItems => {
     const total = cartItems.reduce((acc, item) => {
-      return acc + item.quantity;
+      return acc + parseInt(item.quantity);
     }, 0);
     return total;
   };
 
   const calculateCartPrice = cartItems => {
     const total = cartItems.reduce((acc, item) => {
-      return acc + item.price * item.quantity;
+      return acc + item.price * parseInt(item.quantity);
     }, 0);
     return total;
   };
 
   const cartQuantity = calculateCartQuantity(cartItems);
   const cartPrice = calculateCartPrice(cartItems);
+
   return (
     <Dropdown
       isOpen={dropdownOpen}
@@ -46,6 +46,7 @@ const CartDropdown = () => {
         Cart <Badge pill={true}>{cartQuantity}</Badge>
       </DropdownToggle>
       <DropdownMenu className='cart-dropdown-menu'>
+        <div className='cart-dropdown-menu-carat'></div>
         <Container className='cart-dropdown-header'>
           <Row>
             <Col xs='4'>
@@ -55,19 +56,21 @@ const CartDropdown = () => {
             <Col xs='8'>
               <span className='cart-dropdown-header-price'>
                 Total:{" "}
-                <span className='text-info'>${cartPrice.toFixed(2)}</span>
+                <span className='cart-dropdown-header-price-value'>
+                  ${cartPrice.toFixed(2)}
+                </span>
               </span>
             </Col>
           </Row>
         </Container>
 
-        {cartItems.map(item => {
-          return <CartDropdownItem item={item} />;
-        })}
+        <div className='cart-dropdown-item'>
+          {cartItems.map(item => {
+            return <CartDropdownItem key={item.id} item={item} />;
+          })}
+        </div>
 
-        <DropdownItem toggle={false}>
-          <Button className='cart-dropdown-checkout-button'>Checkout</Button>
-        </DropdownItem>
+        <Button className='cart-dropdown-checkout-button'>Checkout</Button>
       </DropdownMenu>
     </Dropdown>
   );
