@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Button } from "reactstrap";
-import AddressForm from "../features/AddressForm";
+import { Button, Col, Container, Row } from "reactstrap";
+import FormComponent from "../features/FormComponent";
 import Header from "../components/Header";
 
 const CheckoutPage = () => {
@@ -23,57 +23,46 @@ const CheckoutPage = () => {
 
   const [showShippingForm, setShowShippingForm] = useState(false);
 
-  const handleBillingChange = event => {
-    const keyName = event.target.name;
-    setBillingAddress({ ...billingAddress, [keyName]: event.target.value });
-    console.log(
-      "BILLING",
-      event.target.value,
-      event.target.name,
-      billingAddress
-    );
-  };
-
-  const handleShippingChange = event => {
-    const keyName = event.target.name;
-    setShippingAddress({ ...shippingAddress, [keyName]: event.target.value });
-    console.log(
-      "SHIPPING",
-      event.target.value,
-      event.target.name,
-      shippingAddress
-    );
-  };
-
   return (
     <>
       <Header header='Checkout Page' />
-      <AddressForm
-        address={billingAddress}
-        handleChange={handleBillingChange}
-      />
-      <Button
-        onClick={() => {
-          setShowShippingForm(true);
-        }}
-      >
-        Use different shipping address
-      </Button>
-      <Button
-        onClick={() => {
-          setShippingAddress(billingAddress);
-          setShowShippingForm(true);
-        }}
-      >
-        Use billing as shipping address
-      </Button>
+      <Container>
+        <Row>
+          <Col>
+            <FormComponent
+              formData={billingAddress}
+              setFormData={setBillingAddress}
+            />
+          </Col>
+          <Col>
+            {showShippingForm && (
+              <FormComponent
+                formData={shippingAddress}
+                handleChange={setShippingAddress}
+              />
+            )}
+          </Col>
+        </Row>
+        <Row>
+          <Button
+            onClick={() => {
+              setShowShippingForm(true);
+            }}
+          >
+            Use different shipping address
+          </Button>
+          <Button
+            onClick={() => {
+              setShippingAddress(billingAddress);
+              setShowShippingForm(true);
+            }}
+          >
+            Use billing as shipping address
+          </Button>
+        </Row>
+      </Container>
+
       <hr />
-      {showShippingForm && (
-        <AddressForm
-          address={shippingAddress}
-          handleChange={handleShippingChange}
-        />
-      )}
     </>
   );
 };

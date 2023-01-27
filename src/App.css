@@ -181,6 +181,7 @@
 
 .cart-dropdown-item-price {
   float: right;
+  color: red;
 }
 
 .cart-dropdown-item-info {

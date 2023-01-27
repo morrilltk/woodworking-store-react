@@ -55,7 +55,7 @@ const CartDropdown = () => {
             </Col>
             <Col xs='8'>
               <span className='cart-dropdown-header-price'>
-                Total:{" "}
+                Total Price:{" "}
                 <span className='cart-dropdown-header-price-value'>
                   ${cartPrice.toFixed(2)}
                 </span>
